@@ -96,9 +96,9 @@ python -m http.server 8765 --bind 127.0.0.1
 
 **B. スマホでも使う (おすすめ: GitHub Pages)**
 
-1. GitHub に **このアプリ専用の** リポジトリを作り、`app/` の 3 ファイルをルートに置く。
-2. Settings → Pages → Branch: `main` / `(root)` で公開。
-3. `https://<ユーザー名>.github.io/<リポジトリ名>/` をスマホで開き、「ホーム画面に追加」。
+1. このリポジトリの Settings → Pages → Source: **Deploy from a branch** → Branch: `main` / `(root)` → Save。
+2. 1〜2 分後、<https://phanyle.github.io/streetfighter6_calc_app/app/> をスマホで開き、「ホーム画面に追加」。
+3. 初回は設定画面で URL とキーを入れ直す (保存場所はサイトごとに別なので、ローカル版の設定は引き継がれない)。
 
 > コードにキーは入っていないので公開リポジトリで OK。キーは各端末の中だけに保存されます。
 > 同じ `<ユーザー名>.github.io` 上に他人のスクリプトを置かないこと (ブラウザ保存領域が同じオリジンで共有されるため)。
