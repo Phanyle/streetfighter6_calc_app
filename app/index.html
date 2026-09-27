@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta http-equiv="Content-Security-Policy"
+      content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:;
+               connect-src https://script.google.com https://script.googleusercontent.com;
+               base-uri 'none'; form-action 'none'">
+<meta name="referrer" content="no-referrer">
+<meta name="theme-color" content="#14161c">
+<title>SF6 対戦ログ</title>
+<link rel="stylesheet" href="style.css?v=3">
+<script src="app.js?v=3" defer></script>
+</head>
+<body>
+<main>
+  <header class="top">
+    <h1>SF6 対戦ログ</h1>
+    <div class="today" id="today" aria-live="polite"></div>
+    <button type="button" class="icon-btn" id="openSettings" aria-label="設定">⚙</button>
+  </header>
+
+  <section class="card">
+    <div class="row">
+      <label class="field">
+        <span>自キャラ</span>
+        <select id="myChar"></select>
+      </label>
+      <label class="field">
+        <span>ポイント (任意・LP/MR など)</span>
+        <input id="point" type="number" inputmode="numeric" step="1" autocomplete="off">
+      </label>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>相手キャラ <span class="picked" id="oppPicked"></span></h2>
+    <div class="grid" id="oppGrid" role="radiogroup" aria-label="相手キャラ"></div>
+  </section>
+
+  <section class="card">
+    <h2>結果</h2>
+    <div class="result" role="radiogroup" aria-label="結果">
+      <button type="button" class="res win" data-result="勝ち">勝ち</button>
+      <button type="button" class="res lose" data-result="負け">負け</button>
+    </div>
+    <div class="rounds" id="rounds" role="radiogroup" aria-label="ラウンド"></div>
+  </section>
+
+  <section class="card">
+    <h2>タグ <small>(任意・複数可)</small></h2>
+    <div class="chips" id="tags"></div>
+    <label class="field">
+      <span>反省点・メモ (任意・タグはこの先頭に付きます)</span>
+      <textarea id="memo" rows="2" maxlength="500"></textarea>
+    </label>
+    <details class="more" id="more">
+      <summary>試したこと・対策・メンタル</summary>
+      <label class="field">
+        <span>試したこと・意識したこと</span>
+        <textarea id="tried" rows="2" maxlength="500"></textarea>
+      </label>
+      <label class="field">
+        <span>対策</span>
+        <textarea id="counter" rows="2" maxlength="500"></textarea>
+      </label>
+      <label class="field">
+        <span>メンタル</span>
+        <input id="mental" maxlength="500" list="recentMental" autocomplete="off">
+        <datalist id="recentMental"></datalist>
+      </label>
+    </details>
+  </section>
+
+  <button type="button" class="submit" id="submit" disabled>記録する <kbd>Ctrl+Enter</kbd></button>
+  <p class="queue" id="queueInfo" hidden></p>
+</main>
+
+<div class="toast" id="toast" role="status" hidden>
+  <span id="toastMsg"></span>
+  <button type="button" id="toastUndo" hidden>取り消し</button>
+</div>
+
+<dialog id="settings">
+  <form id="settingsForm" method="dialog">
+    <h2>設定</h2>
+    <label class="field">
+      <span>Web アプリ URL (…/exec)</span>
+      <input id="cfgUrl" type="url" required spellcheck="false" autocomplete="off"
+             placeholder="https://script.google.com/macros/s/XXXX/exec">
+    </label>
+    <label class="field">
+      <span>API キー</span>
+      <input id="cfgKey" type="password" required spellcheck="false" autocomplete="off">
+    </label>
+    <label class="check">
+      <input id="cfgRemember" type="checkbox" checked>
+      この端末にキーを保存する (オフにするとタブを閉じるまで)
+    </label>
+    <label class="field">
+      <span>キャラ一覧 (1行1キャラ)</span>
+      <textarea id="cfgRoster" rows="6"></textarea>
+    </label>
+    <label class="field">
+      <span>タグ一覧 (1行1タグ)</span>
+      <textarea id="cfgTags" rows="4"></textarea>
+    </label>
+    <p class="msg" id="cfgMsg" aria-live="polite"></p>
+    <div class="actions">
+      <button type="button" id="cfgTest">接続テスト</button>
+      <button type="button" id="cfgForget" class="danger">キーを消去</button>
+      <span class="spacer"></span>
+      <button type="button" id="cfgCancel">閉じる</button>
+      <button type="submit" id="cfgSave" class="primary">保存</button>
+    </div>
+  </form>
+</dialog>
+</body>
+</html>
